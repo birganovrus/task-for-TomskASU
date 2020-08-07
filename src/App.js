@@ -2,16 +2,9 @@ import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import Header from "./Components/Header";
+import PersonRow from "./Components/PersonRow";
 
 import Table from "react-bootstrap/Table";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faUserEdit,
-  faTimes,
-  faUserTimes,
-} from "@fortawesome/free-solid-svg-icons";
-import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -38,22 +31,7 @@ class App extends Component {
   }
 
   DisplayUsers = (user, id) => {
-    return (
-      <tr key={id}>
-        <td>{user.firstName}</td>
-        <td>{user.lastName}</td>
-        <td>
-          <div className="table-buttons">
-            <Button variant="outline-primary">
-              <FontAwesomeIcon icon={faUserEdit} />
-            </Button>{" "}
-            <Button variant="outline-danger">
-              <FontAwesomeIcon icon={faUserTimes} />
-            </Button>
-          </div>
-        </td>
-      </tr>
-    );
+    return <PersonRow user={user} id={id} />;
   };
 
   render() {
