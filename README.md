@@ -1,7 +1,13 @@
 Готовое тестовое задание для ТомскАСУ
 
-запуск через:
+Используется json-server;
+Запуск сервера:
+### `node start server.js` - development
+
+Запуск приложения через:
 ### `npm start` - development
 ### `npm run build` - production
 
-Используется json-server;
+По всем вопросам/предложениям:
+### `+7-953-921-69-42` - Руслан
+### `birganovruslan@yandex.ru / rtb2.tpu.ru`
