@@ -1,64 +1,57 @@
 import React, { Component } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { createBrowserHistory } from "history";
 
+//Собственные компоненты
 import Header from "./Components/Header";
-import PersonRow from "./Components/PersonRow";
+import PersonsTable from "./Components/PersonsTable";
+import EditPersonForm from "./Components/EditPerson";
+import AddPersonForm from "./Components/AddPerson";
+//
 
-import Table from "react-bootstrap/Table";
+import Notifications from "react-notify-toast";
+
+//react-bootstrap компоненты
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+//
+
+//Стили
 import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+//
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: [],
-      isDataLoaded: false,
-    };
-  }
-
-  componentDidMount() {
-    fetch("http://localhost:4000/persons")
-      .then((res) => res.json())
-      .then((json) => {
-        this.setState({
-          isDataLoaded: true,
-          data: json,
-        });
-      });
-  }
-
-  DisplayUsers = (user, id) => {
-    return <PersonRow user={user} id={id} />;
-  };
-
   render() {
-    const data = this.state.data;
     return (
-      <div className="App">
-        <header className="App-header">
+      <Router>
+        <div className="App">
           <Header />
-        </header>
-        <Container fluid>
-          <Row>
-            <Col></Col>
-            <Col md={8}>
-              <Table responsive striped bordered hover>
-                <thead>
-                  <tr>
-                    <th>Имя</th>
-                    <th>Фамилия</th>
-                  </tr>
-                </thead>
-                <tbody>{data.map(this.DisplayUsers)}</tbody>
-              </Table>
-            </Col>
-            <Col></Col>
-          </Row>
-        </Container>
-      </div>
+
+          <Container fluid>
+            <Row>
+              <Col></Col>
+              <Col md={8}>
+                <Notifications />
+                <Switch>
+                  <Route path="/" exact>
+                    <PersonsTable />
+                  </Route>
+                  <Route path="/addPerson">
+                    <AddPersonForm />
+                  </Route>
+                  <Route
+                    path="/edit"
+                    component={(props) => <EditPersonForm {...props} />}
+                  ></Route>
+                </Switch>
+              </Col>
+              <Col></Col>
+            </Row>
+          </Container>
+        </div>
+      </Router>
     );
   }
 }

@@ -1,6 +1,7 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import { connect } from "react-redux";
 
 const ModalDelete = (props) => {
   return (
@@ -22,12 +23,25 @@ const ModalDelete = (props) => {
         </h4>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="danger" onClick={props.onHide}>
-          Close
+        <Button variant="primary" onClick={props.onHide}>
+          Нет, не удалять!
+        </Button>
+        <Button
+          variant="danger"
+          onClick={() => {
+            deleteUser(props.id);
+            props.onHide();
+          }}
+        >
+          Да, удалить!
         </Button>
       </Modal.Footer>
     </Modal>
   );
 };
 
-export default ModalDelete;
+const mapStateToProps = (state) => ({
+  data: state.data,
+});
+
+export default connect(mapStateToProps)(ModalDelete);

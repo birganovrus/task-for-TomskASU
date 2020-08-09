@@ -11,7 +11,11 @@ const ButtonDelete = (props) => {
 
   return (
     <>
-      <Button variant="outline-danger" onClick={() => setModalShow(true)}>
+      <Button
+        variant="outline-danger"
+        onClick={() => setModalShow(true)}
+        updTable={props.updateTable}
+      >
         <FontAwesomeIcon icon={faUserTimes} />
       </Button>
 
@@ -20,6 +24,7 @@ const ButtonDelete = (props) => {
         onHide={() => setModalShow(false)}
         name={props.user.firstName}
         lastname={props.user.lastName}
+        id={props.user.id}
       />
     </>
   );
