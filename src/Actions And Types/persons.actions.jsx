@@ -2,21 +2,19 @@ import {
   FETCH_PERSONS_LOADING,
   FETCH_PERSONS_ERROR,
   FETCH_PERSONS_SUCCESS,
-  DELETE_PERSON_LOADING,
   DELETE_PERSON_ERROR,
   DELETE_PERSON_SUCCESS,
-  EDIT_PERSON_LOADING,
   EDIT_PERSON_ERROR,
   EDIT_PERSON_SUCCESS,
-  ADD_PERSON_LOADING,
   ADD_PERSON_ERROR,
   ADD_PERSON_SUCCESS,
 } from "./types";
 
-import { persons } from "./personsExample";
 import { notify } from "react-notify-toast";
 import { history } from "../index.js";
 import Axios from "axios";
+
+// ПОЛУЧЕНИЕ ПОЛЬЗОВАТЕЛЕЙ
 
 export const fetchPersonsSuccess = (data) => {
   return {
@@ -39,42 +37,6 @@ export const fetchPersonsError = (data) => {
   };
 };
 
-export const createPersonSuccess = (data) => {
-  return {
-    type: ADD_PERSON_SUCCESS,
-    payload: data,
-  };
-};
-
-export const createPersonError = (data) => {
-  return {
-    type: ADD_PERSON_ERROR,
-    payload: data,
-  };
-};
-
-export const editPersonSuccess = (data) => {
-  return {
-    type: EDIT_PERSON_SUCCESS,
-    payload: data,
-  };
-};
-
-export const deletePersonSuccess = (id) => {
-  return {
-    type: DELETE_PERSON_SUCCESS,
-    payload: { id: id },
-  };
-};
-
-export const deletePersonError = (data) => {
-  return {
-    type: DELETE_PERSON_ERROR,
-    payload: data,
-  };
-};
-
-//ПОЛУЧЕНИЕ ПОЛЬЗОВАТЕЛЕЙ
 export const fetchPersons = () => {
   let isLoading = true;
 
@@ -88,8 +50,8 @@ export const fetchPersons = () => {
       })
       .catch((error) => {
         const errorObject = {};
-        errorObject["message"] = error.response.statusText;
-        errorObject["status"] = error.response.status;
+        errorObject.message = error.response.statusText;
+        errorObject.status = error.response.status;
         dispatch(fetchPersonsError(errorObject));
         isLoading = false;
         dispatch(fetchPersonsLoading(isLoading));
@@ -98,7 +60,21 @@ export const fetchPersons = () => {
 };
 //
 
-//СОЗДАНИЕ ПОЛЬЗОВАТЕЛЕЙ
+// СОЗДАНИЕ ПОЛЬЗОВАТЕЛЕЙ
+
+export const createPersonSuccess = (data) => {
+  return {
+    type: ADD_PERSON_SUCCESS,
+    payload: data,
+  };
+};
+
+export const createPersonError = (data) => {
+  return {
+    type: ADD_PERSON_ERROR,
+    payload: data,
+  };
+};
 
 export const createPerson = (person) => {
   const data = {
@@ -118,22 +94,37 @@ export const createPerson = (person) => {
           })
           .catch((error) => {
             const errorObject = {};
-            errorObject["message"] = error.response.statusText;
-            errorObject["status"] = error.response.status;
+            errorObject.message = error.response.statusText;
+            errorObject.status = error.response.status;
             dispatch(createPersonError(errorObject));
           });
       })
       .catch((error) => {
         const errorObject = {};
-        errorObject["message"] = error.response.statusText;
-        errorObject["status"] = error.response.status;
+        errorObject.message = error.response.statusText;
+        errorObject.status = error.response.status;
         dispatch(createPersonError(errorObject));
       });
   };
 };
 //
 
-//УДАЛЕНИЕ ПОЛЬЗОВАТЕЛЕЙ
+// УДАЛЕНИЕ ПОЛЬЗОВАТЕЛЕЙ
+
+export const deletePersonSuccess = (id) => {
+  return {
+    type: DELETE_PERSON_SUCCESS,
+    payload: { id: id },
+  };
+};
+
+export const deletePersonError = (data) => {
+  return {
+    type: DELETE_PERSON_ERROR,
+    payload: data,
+  };
+};
+
 export const deletePerson = (id) => {
   return (dispatch) => {
     return Axios.delete("http://localhost:4000/persons/" + id)
@@ -142,15 +133,30 @@ export const deletePerson = (id) => {
       })
       .catch((error) => {
         const errorObject = {};
-        errorObject["message"] = error.response.statusText;
-        errorObject["status"] = error.response.status;
+        errorObject.message = error.response.statusText;
+        errorObject.status = error.response.status;
         dispatch(deletePersonError(errorObject));
       });
   };
 };
 //
 
-//РЕДАКТИРОВАНИЕ ПОЛЬЗОВАТЕЛЕЙ
+// РЕДАКТИРОВАНИЕ ПОЛЬЗОВАТЕЛЕЙ
+
+export const editPersonSuccess = (data) => {
+  return {
+    type: EDIT_PERSON_SUCCESS,
+    payload: data,
+  };
+};
+
+export const editPersonError = (data) => {
+  return {
+    type: EDIT_PERSON_ERROR,
+    payload: data,
+  };
+};
+
 export const editPerson = (person) => {
   const id = person.id;
   console.log(id);
@@ -162,13 +168,20 @@ export const editPerson = (person) => {
             dispatch(editPersonSuccess(response.data));
             notify.show("Пользователь изменен!", "success", 3000);
             history.push("/");
-            //history.go();
           })
           .catch((error) => {
-            console.log(error);
+            const errorObject = {};
+            errorObject.message = error.response.statusText;
+            errorObject.status = error.response.status;
+            dispatch(editPersonError(errorObject));
           });
       })
-      .catch((error) => {});
+      .catch((error) => {
+        const errorObject = {};
+        errorObject.message = error.response.statusText;
+        errorObject.status = error.response.status;
+        dispatch(editPersonError(errorObject));
+      });
   };
 };
 //

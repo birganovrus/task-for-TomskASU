@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react'
 
-import Person from "./PersonRow";
-import { Link } from "react-router-dom";
+import Person from './PersonRow'
+import { Link } from 'react-router-dom'
 
-import Table from "react-bootstrap/Table";
-import Button from "react-bootstrap/Button";
+import Table from 'react-bootstrap/Table'
+import Button from 'react-bootstrap/Button'
 
 const PersonsTable = () => {
   return (
@@ -14,9 +14,9 @@ const PersonsTable = () => {
           <th>Имя</th>
           <th>Фамилия</th>
           <th>
-            <div className="table-buttons">
-              <Link to="/addPerson">
-                <Button variant="outline-primary">Добавить сотрудника</Button>
+            <div className='table-buttons'>
+              <Link to='/addPerson'>
+                <Button variant='outline-primary'>Добавить сотрудника</Button>
               </Link>
             </div>
           </th>
@@ -26,7 +26,7 @@ const PersonsTable = () => {
         <Person />
       </tbody>
     </Table>
-  );
-};
+  )
+}
 
-export default PersonsTable;
+export default PersonsTable

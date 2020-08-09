@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -29,6 +29,12 @@ const Header = () => {
                 target="_blank"
               >
                 React
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                href="https://github.com/reduxjs/react-redux"
+                target="_blank"
+              >
+                React-Redux
               </NavDropdown.Item>
               <NavDropdown.Item
                 href="https://github.com/typicode/json-server"
